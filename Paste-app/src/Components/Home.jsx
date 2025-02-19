@@ -10,6 +10,7 @@ const Home = () => {
   const pasteId = searchParams.get("pasteId");
   const dispatch = useDispatch();
   const allPastes = useSelector((state) => state.paste.pastes);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     if (pasteId) {
@@ -41,18 +42,26 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen bg-#F8E1B7">
+    <div
+      className={`flex flex-col items-center min-h-screen p-6 transition-all 
+      ${theme === "light" ? "bg-[#F8E1B7] text-black" : "bg-[#121212] text-white"}
+    `}
+    >
       {/* Header */}
-      <h1 className="text-4xl font-semibold text-gray-700 mb-4 ">Notes</h1>
+      <h1 className="text-4xl font-semibold mb-4">Notes</h1>
 
       {/* Note Input Box */}
-      <div className="w-full max-w-xl bg-white shadow-md rounded-xl p-4">
+      <div
+        className={`w-full max-w-xl p-4 rounded-xl shadow-md transition-all
+        ${theme === "light" ? "bg-white" : "bg-[#1E1E1E] border border-gray-700"}
+      `}
+      >
         <input
           type="text"
           value={Title}
           placeholder="Enter a Title"
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full text-xl font-medium px-2 py-2 bg-transparent outline-none"
+          className={`w-full text-2xl font-medium px-2 py-2 bg-transparent outline-none`}
         />
 
         <textarea

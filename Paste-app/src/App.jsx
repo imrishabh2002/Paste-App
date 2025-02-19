@@ -1,57 +1,25 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Navbar from './Components/Navbar'
-import Home from './Components/Home'
-import Paste from './Components/Paste'
-import ViewPaste from './Components/ViewPaste'
-
-
-const router = createBrowserRouter([
-
-{
-  path: "/",
-  element: 
-  <div>
-   <Navbar/>
-   <Home/>
-  </div>
-},
-
-{
-  path: "/pastes",
-  element: 
-  <div>
-    <Navbar/>
-    <Paste/>
-
-  </div>
-
-},
-
-{
-  path: "/pastes/:id",
-  element: 
-  <div>
-    <Navbar/>
-    <ViewPaste/>
-
-  </div>
-
-}
-
-
-])
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Navbar from "./components/Navbar";
+import Home from "./Components/Home";
+import Paste from "./Components/Paste";
+import ViewPaste from "./Components/ViewPaste";
 
 function App() {
-
+  const theme = useSelector((state) => state.theme.theme);
 
   return (
-  <div>
-    <RouterProvider router={router}/>
-  </div>
-  )
+    <div className={theme === "light" ? "bg-[#F8E1B7] text-black" : "bg-[#121212] text-white"}>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/pastes" element={<Paste/>} />
+          <Route path="/pastes/:id" element={<ViewPaste/>} />
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
-export default App
+export default App;
